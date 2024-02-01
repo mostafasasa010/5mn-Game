@@ -1,0 +1,43 @@
+/* --- Google Font --- */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* --- CSS Vars --- */
+:root {
+  /* Header Height */
+  --header-height: 4rem;
+  /* Colors */
+  --main-color: #436850;
+  --main-color-alt: #12372a;
+  --text-color: #191717;
+  --text-color-alt: #ffffff;
+  /* Font Size */
+  --biggest-size: 2.25rem;
+  --big-size: 1.5rem;
+  --normal-size: 1.125rem;
+  --small-size: 0.875rem;
+  /* Font Weight */
+  --normal-weight: 600;
+  --bold-weight: 700;
+}
+
+/* --- Base --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Cairo", sans-serif;
+  font-size: var(--normal-size);
+  color: var(--text-color);
+}
+html {
+  scroll-behavior: smooth;
+}
+a {
+  color: var(--text-color);
+}
+a,
+li {
+  text-decoration: none;
+}
