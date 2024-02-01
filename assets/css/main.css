@@ -76,6 +76,22 @@ img {
   max-width: 100%;
   height: auto;
 }
+.btn {
+  display: block;
+  border: none;
+  padding: 0.4rem 1.75rem;
+  background-color: var(--main-color);
+  color: var(--text-color-alt);
+  font-size: var(--normal-size);
+  font-weight: var(--bold-weight);
+  border-radius: 0.75rem;
+  margin: 1rem auto 0;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background-color: var(--main-color-alt);
+  }
+}
 
 /* --- Start Header --- */
 header.header {
@@ -170,22 +186,6 @@ main.main {
             font-weight: var(--bold-weight);
           }
         }
-        button {
-          display: block;
-          border: none;
-          padding: 0.4rem 1.75rem;
-          background-color: var(--main-color);
-          color: var(--text-color-alt);
-          font-size: var(--normal-size);
-          font-weight: var(--bold-weight);
-          border-radius: 0.75rem;
-          margin: 1rem auto 0;
-          cursor: pointer;
-          transition: 0.3s;
-          &:hover {
-            background-color: var(--main-color-alt);
-          }
-        }
       }
     }
     &.info {
@@ -252,6 +252,25 @@ main.main {
               outline: none;
             }
           }
+        }
+      }
+    }
+    .game-btns {
+      button {
+        padding: 0.5rem 1.25rem;
+        display: inline-block;
+        &.hint {
+          background-color: #0079ff;
+          &:hover {
+            background-color: #005ac1;
+          }
+        }
+      }
+      > button {
+        margin-top: 0.5rem;
+        background-color: #fe0000;
+        &:hover {
+          background-color: #d30000;
         }
       }
     }

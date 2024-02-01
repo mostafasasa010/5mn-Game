@@ -3,6 +3,7 @@ const form = document.querySelector("form#diff");
 const inputs = document.querySelectorAll(".div-inputs input")
   ? document.querySelectorAll(".div-inputs input")
   : null;
+const againBtn = document.querySelector("button.again");
 let difficult;
 let coutry;
 let countries = [
@@ -145,4 +146,21 @@ function generateInputsFun(tries) {
     // Dynamic Style
     root.style.setProperty("--grid-input", `repeat(${coutry.length}, 1fr)`);
   }
+}
+
+// Play Again Function
+againBtn.addEventListener("click", () => {
+  againFun();
+});
+function againFun() {
+  let activeImage = document.querySelectorAll(".image .visiable");
+  let inputs = document.querySelectorAll(".inputs > div");
+  activeImage.forEach((img) => {
+    img.classList.remove("visiable");
+  });
+  inputs.forEach((input) => {
+    input.remove();
+  });
+  getImageFun();
+  generateInputsFun(getTriesFun());
 }
