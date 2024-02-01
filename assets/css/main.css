@@ -5,6 +5,8 @@
 :root {
   /* Header Height */
   --header-height: 4rem;
+  /* Footer Height */
+  --footer-height: calc(var(--header-height) * 0.7);
   /* Colors */
   --body-color: #f2efe5;
   --body-color-alt: #f9f9f9;
@@ -16,7 +18,7 @@
   --biggest-size: 1.75rem;
   --big-size: 1.25rem;
   --normal-size: 1rem;
-  --small-size: 0.875rem;
+  --small-size: 0.8rem;
   /* Font Weight */
   --normal-weight: 600;
   --bold-weight: 700;
@@ -28,6 +30,7 @@
     --biggest-size: 2rem;
     --big-size: 1.5rem;
     --normal-size: 1.125rem;
+    --small-size: 0.875rem;
   }
 }
 
@@ -68,6 +71,10 @@ button {
   font-family: var(--main-family);
   border: none;
 }
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 /* --- Start Header --- */
 header.header {
@@ -80,7 +87,7 @@ header.header {
   align-items: center;
   justify-content: center;
   background-color: var(--main-color);
-  border-bottom: 4px solid var(--main-color-alt);
+  border-bottom: 3px solid var(--main-color-alt);
   h1 {
     font-size: var(--big-size);
     text-align: center;
@@ -110,6 +117,7 @@ header.header {
 /* --- Section Start Game --- */
 main.main {
   margin-top: var(--header-height);
+  margin-bottom: var(--footer-height);
   padding: 0.75rem 1.25rem;
   section.start-section {
     padding: 0.5rem 0.75rem;
@@ -196,5 +204,46 @@ main.main {
       }
     }
   }
+  section.hide {
+    display: none;
+  }
+  section.game-section {
+    display: none;
+    .image {
+      img {
+        display: none;
+        border-radius: 1rem;
+        border: 2px solid var(--main-color-alt);
+        &.visiable {
+          display: block;
+        }
+      }
+    }
+    &.active {
+      display: block;
+    }
+  }
 }
 /* --- End Main --- */
+
+/* --- Start Footer --- */
+footer {
+  position: fixed;
+  width: 100%;
+  height: var(--footer-height);
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-color);
+  color: var(--text-color-alt);
+  border-top: 3px solid var(--main-color-alt);
+  p {
+    font-size: var(--small-size);
+    span {
+      font-weight: var(--bold-weight);
+    }
+  }
+}
+/* --- End Footer --- */
