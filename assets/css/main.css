@@ -67,7 +67,8 @@ a,
 li {
   text-decoration: none;
 }
-button {
+button,
+input {
   font-family: var(--main-family);
   border: none;
 }
@@ -114,11 +115,11 @@ header.header {
 /* --- End Header --- */
 
 /* --- Start Main --- */
-/* --- Section Start Game --- */
 main.main {
   margin-top: var(--header-height);
   margin-bottom: var(--footer-height);
   padding: 0.75rem 1.25rem;
+  /* --- Section Start Game --- */
   section.start-section {
     padding: 0.5rem 0.75rem;
     background-color: var(--body-color-alt);
@@ -207,8 +208,13 @@ main.main {
   section.hide {
     display: none;
   }
+  /* --- Section Game --- */
   section.game-section {
     display: none;
+    h3 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
     .image {
       img {
         display: none;
@@ -221,6 +227,33 @@ main.main {
     }
     &.active {
       display: block;
+    }
+    .inputs {
+      margin-top: 1rem;
+      > div {
+        span {
+          display: block;
+          font-weight: var(--bold-weight);
+          margin-bottom: 0.5rem;
+        }
+        .div-inputs {
+          display: grid;
+          grid-template-columns: var(--grid-input);
+          gap: 0.25rem;
+          input {
+            width: var(--width-input);
+            height: var(--width-input);
+            text-align: center;
+            border: none;
+            margin-bottom: 0.75rem;
+            font-size: var(--font-input);
+            border-bottom: 4px solid var(--main-color-alt);
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
     }
   }
 }
