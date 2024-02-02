@@ -94,9 +94,9 @@ img {
   margin: 1rem auto 0;
   cursor: pointer;
   transition: 0.3s;
-  &:hover {
-    background-color: var(--main-color-alt);
-  }
+}
+.btn:hover {
+  background-color: var(--main-color-alt);
 }
 
 /* --- Start Header --- */
@@ -111,29 +111,29 @@ header.header {
   justify-content: center;
   background-color: var(--main-color);
   border-bottom: 3px solid var(--main-color-alt);
-  h1 {
-    font-size: var(--big-size);
-    text-align: center;
-    color: var(--text-color-alt);
-  }
-  > div {
-    position: fixed;
-    left: -3px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--main-color-alt);
-    top: calc(var(--header-height) + 0.5rem);
-    border-radius: 0 0.5rem 0.5rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: var(--z-fixed);
-    i {
-      color: var(--body-color);
-      font-size: var(--biggest-size);
-    }
-  }
+}
+header.header h1 {
+  font-size: var(--big-size);
+  text-align: center;
+  color: var(--text-color-alt);
+}
+header.header > div {
+  position: fixed;
+  left: -3px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--main-color-alt);
+  top: calc(var(--header-height) + 0.5rem);
+  border-radius: 0 0.5rem 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: var(--z-fixed);
+}
+header.header > div i {
+  color: var(--body-color);
+  font-size: var(--biggest-size);
 }
 /* --- End Header --- */
 
@@ -142,182 +142,206 @@ main.main {
   margin-top: var(--header-height);
   margin-bottom: var(--footer-height);
   padding: 0.75rem 1.25rem;
-  /* --- Section Start Game --- */
-  section.start-section {
-    padding: 0.5rem 0.75rem;
-    background-color: var(--body-color-alt);
-    border-radius: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    h3 {
-      margin-bottom: 0.8rem;
-    }
-    .topic {
-      > div {
-        label {
-          margin-left: 0.5rem;
-          font-weight: var(--bold-weight);
-          font-size: var(--big-size);
-        }
-        span {
-          font-weight: var(--bold-weight);
-        }
-      }
-      > p {
-        i {
-          margin-left: 0.5rem;
-          font-size: var(--big-size);
-          color: var(--main-color-alt);
-        }
-        span {
-          font-weight: var(--bold-weight);
-          font-size: var(--big-size);
-        }
-      }
-    }
-    .diff {
-      > label {
-        font-weight: var(--bold-weight);
-        font-size: var(--big-size);
-      }
-      form#diff {
-        > div {
-          display: flex;
-          align-items: center;
-          input {
-            margin-bottom: -4px;
-            accent-color: var(--main-color-alt);
-            cursor: pointer;
-          }
-          label {
-            margin-right: 0.5rem;
-            font-weight: var(--bold-weight);
-          }
-        }
-      }
-    }
-    &.info {
-      margin-top: 0.75rem;
-      p {
-        display: flex;
-        align-items: center;
-        span {
-          font-weight: var(--bold-weight);
-        }
-        i {
-          font-size: var(--big-size);
-          margin-left: 0.2rem;
-          margin-bottom: -3px;
-          color: var(--main-color-alt);
-        }
-      }
-    }
-  }
-  section.hide {
-    display: none;
-  }
-  /* --- Section Game --- */
-  section.game-section {
-    display: none;
-    h3 {
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    .image {
-      img {
-        display: none;
-        border-radius: 1rem;
-        border: 2px solid var(--main-color-alt);
-        &.visiable {
-          display: block;
-        }
-      }
-    }
-    &.active {
-      display: block;
-    }
-    .inputs {
-      margin-top: 1rem;
-      > div {
-        span {
-          display: block;
-          font-weight: var(--bold-weight);
-          margin-bottom: 0.5rem;
-        }
-        .div-inputs {
-          display: grid;
-          grid-template-columns: var(--grid-input);
-          gap: 0.25rem;
-          transition: 0.3s;
-          &.disable input,
-          .disable {
-            opacity: 0.5;
-            cursor: not-allowed;
-            z-index: -1;
-          }
-          input {
-            width: var(--width-input);
-            height: var(--width-input);
-            text-align: center;
-            border: none;
-            margin-bottom: 0.75rem;
-            font-size: var(--font-input);
-            border-bottom: 4px solid var(--main-color-alt);
-            background-color: var(--body-color-alt);
-            &:focus {
-              outline: none;
-            }
-            &.win {
-              background-color: #0079ff;
-              color: var(--text-color-alt);
-            }
-            &.lose {
-              background-color: #fe0000;
-              color: var(--text-color-alt);
-            }
-          }
-        }
-      }
-    }
-    .msg.active {
-      padding: 0.25rem 0.75rem 0.5rem;
-      background-color: var(--main-color);
-      color: var(--text-color-alt);
-      margin-top: 0.75rem;
-      border-radius: 0.5rem;
-      font-weight: var(--bold-weight);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .game-btns {
-      button {
-        padding: 0.5rem 1.25rem;
-        display: inline-block;
-        &:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-        &.hint {
-          background-color: #0079ff;
-          &:hover {
-            background-color: #005ac1;
-          }
-        }
-      }
-      .btns-back > button {
-        margin-top: 0.5rem;
-        background-color: #fe0000;
-        &:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-        &:hover {
-          background-color: #d30000;
-        }
-        &.back {
-          background-color: var(--text-color);
-        }
-      }
-    }
-  }
+}
+
+/* --- Section Start Game --- */
+section.start-section {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--body-color-alt);
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+section.start-section h3 {
+  margin-bottom: 0.8rem;
+}
+section.start-section .topic > div label {
+  margin-left: 0.5rem;
+  font-weight: var(--bold-weight);
+  font-size: var(--big-size);
+}
+section.start-section .topic > div span {
+  font-weight: var(--bold-weight);
+}
+section.start-section .topic > p i {
+  margin-left: 0.5rem;
+  font-size: var(--big-size);
+  color: var(--main-color-alt);
+}
+section.start-section .topic > p span {
+  font-weight: var(--bold-weight);
+  font-size: var(--big-size);
+}
+section.start-section .diff > label {
+  font-weight: var(--bold-weight);
+  font-size: var(--big-size);
+}
+section.start-section .diff form#diff > div {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+section.start-section .diff form#diff input {
+  margin-bottom: -4px;
+  accent-color: var(--main-color-alt);
+  cursor: pointer;
+}
+section.start-section .diff form#diff > label {
+  margin-right: 0.5rem;
+  font-weight: var(--bold-weight);
+}
+section.start-section .diff.info {
+  margin-top: 0.75rem;
+}
+section.start-section .diff.info p {
+  display: flex;
+  align-items: center;
+}
+section.start-section .diff.info p span {
+  font-weight: var(--bold-weight);
+}
+section.start-section .diff.info p i {
+  font-size: var(--big-size);
+  margin-left: 0.2rem;
+  margin-bottom: -3px;
+  color: var(--main-color-alt);
+}
+section.start-section.info {
+  margin-top: 0.75rem;
+}
+section.start-section.info p {
+  display: flex;
+  align-items: center;
+}
+section.start-section.info p span {
+  font-weight: var(--bold-weight);
+}
+section.start-section.info p i {
+  font-size: var(--big-size);
+  margin-left: 0.2rem;
+  margin-bottom: -3px;
+  color: var(--main-color-alt);
+}
+section.hide {
+  display: none;
+}
+
+/* --- Section Game --- */
+section.game-section {
+  display: none;
+}
+section.game-section h3 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+section.game-section .image img {
+  display: none;
+  border-radius: 1rem;
+  border: 2px solid var(--main-color-alt);
+}
+section.game-section .image img.visiable {
+  display: block;
+}
+section.game-section.active {
+  display: block;
+}
+section.game-section .inputs {
+  margin-top: 1rem;
+}
+section.game-section > div span {
+  display: block;
+  font-weight: var(--bold-weight);
+  margin-bottom: 0.5rem;
+}
+section.game-section > div .div-inputs {
+  display: grid;
+  grid-template-columns: var(--grid-input);
+  gap: 0.25rem;
+  transition: 0.3s;
+}
+section.game-section > div .div-inputs .disable,
+section.game-section > div .div-inputs.disable input {
+  opacity: 0.5;
+  cursor: not-allowed;
+  z-index: -1;
+}
+section.game-section > div .div-inputs input {
+  width: var(--width-input);
+  height: var(--width-input);
+  text-align: center;
+  border: none;
+  margin-bottom: 0.75rem;
+  font-size: var(--font-input);
+  border-bottom: 4px solid var(--main-color-alt);
+  background-color: var(--body-color-alt);
+}
+section.game-section > div .div-inputs input:focus {
+  outline: none;
+}
+section.game-section > div .div-inputs input.win {
+  background-color: #0079ff;
+  color: var(--text-color-alt);
+}
+section.game-section > div .div-inputs input.lose {
+  background-color: #fe0000;
+  color: var(--text-color-alt);
+}
+section.game-section .msg.active {
+  padding: 0.25rem 0.75rem 0.5rem;
+  background-color: var(--main-color);
+  color: var(--text-color-alt);
+  margin-top: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: var(--bold-weight);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+section.game-section .game-btns {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+section.game-section .game-btns span {
+  display: inline-block;
+  margin: 0;
+}
+section.game-section .game-btns .manage-btns,
+section.game-section .game-btns .btns-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+section.game-section .game-btns .manage-btns button,
+section.game-section .game-btns .btns-back button {
+  flex: 1;
+}
+section.game-section .game-btns button {
+  padding: 0.5rem 1.25rem;
+  display: inline-block;
+  margin: 0;
+}
+section.game-section .game-btns button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+section.game-section .game-btns button.hint {
+  background-color: #0079ff;
+}
+section.game-section .game-btns button.hint:hover {
+  background-color: #005ac1;
+}
+section.game-section .btns-back > button {
+  background-color: #fe0000;
+}
+section.game-section .btns-back > button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+section.game-section .btns-back > button:hover {
+  background-color: #d30000;
+}
+section.game-section .btns-back > button.back {
+  background-color: var(--text-color);
 }
 /* --- End Main --- */
 
@@ -334,11 +358,11 @@ footer {
   background-color: var(--main-color);
   color: var(--text-color-alt);
   border-top: 3px solid var(--main-color-alt);
-  p {
-    font-size: var(--small-size);
-    span {
-      font-weight: var(--bold-weight);
-    }
-  }
+}
+footer p {
+  font-size: var(--small-size);
+}
+footer p span {
+  font-weight: var(--bold-weight);
 }
 /* --- End Footer --- */
