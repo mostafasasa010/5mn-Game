@@ -1,11 +1,15 @@
 // Main Variables
 const form = document.querySelector("form#diff");
-const inputs = document.querySelectorAll(".div-inputs input")
-  ? document.querySelectorAll(".div-inputs input")
-  : null;
 const againBtn = document.querySelector("button.again");
+const backBtn = document.querySelector("button.back");
+const checkBtn = document.querySelector("button.check-word");
+const hintBtn = document.querySelector("button.hint");
+let inputs;
 let difficult;
 let coutry;
+let currentTry = 1;
+let countTries;
+let countHint;
 let countries = [
   "مصر",
   "ايطاليا",
@@ -37,9 +41,7 @@ if (savedTheme) {
   document.body.classList.toggle("dark-theme", savedTheme === "moon");
   changeTheme.classList.toggle("bx-sun", savedTheme === "sun");
 }
-changeTheme.addEventListener("click", () => {
-  changeThemeFun();
-});
+changeTheme.addEventListener("click", changeThemeFun);
 
 // Handle Submit
 form.onsubmit = (e) => {
@@ -56,6 +58,21 @@ if (savedValue) {
     radio.checked = true;
   }
 }
+
+// Again Button
+againBtn.addEventListener("click", againFun);
+
+// Back Button
+backBtn.addEventListener("click", backBtnFun);
+
+// Check Button
+checkBtn.addEventListener("click", checkWord);
+
+// Hint Button
+hintBtn.addEventListener("click", getHint);
+
+// Handle Backspace
+document.addEventListener("keydown", handleBackSpace);
 
 /* --------------------- */
 /* --------------------- */
@@ -114,12 +131,15 @@ function getTriesFun() {
   } else {
     tries = 1;
   }
+  countTries = tries;
+  countHint = difficult === "hard" ? 1 : 2;
   return tries;
 }
 
 // Generate Inputs Function
 function generateInputsFun(tries) {
   const sectionInputs = document.querySelector(".inputs");
+  document.querySelector(".hint span").innerHTML = `(${countHint})`;
   for (let i = 1; i <= tries; i++) {
     const div = document.createElement("div");
     const span = document.createElement("span");
@@ -146,21 +166,135 @@ function generateInputsFun(tries) {
     // Dynamic Style
     root.style.setProperty("--grid-input", `repeat(${coutry.length}, 1fr)`);
   }
+  document.querySelector(`.div-inputs #try-${currentTry}-letter-1`).focus();
+  inputs = document.querySelectorAll(".div-inputs input");
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+      handleInputsFun(input, index);
+    });
+  });
 }
 
 // Play Again Function
-againBtn.addEventListener("click", () => {
-  againFun();
-});
 function againFun() {
   let activeImage = document.querySelectorAll(".image .visiable");
   let inputs = document.querySelectorAll(".inputs > div");
+  const gameBtns = document.querySelectorAll(".game-btns > div button");
   activeImage.forEach((img) => {
     img.classList.remove("visiable");
   });
   inputs.forEach((input) => {
     input.remove();
   });
+  gameBtns.forEach((btn) => {
+    btn.disabled = false;
+  });
   getImageFun();
   generateInputsFun(getTriesFun());
+}
+
+// Back Button Function
+function backBtnFun() {
+  window.location.reload();
+}
+
+// Check Word Function
+function checkWord() {
+  let success = true;
+  for (let i = 0; i < coutry.length; i++) {
+    let inputWord = document.getElementById(
+      `try-${currentTry}-letter-${i + 1}`
+    );
+    let guessLetter = inputWord.value;
+    let actualLetter = coutry[i];
+    if (guessLetter === actualLetter) {
+      const inputs = document.querySelectorAll(".div-inputs input");
+      const gameBtns = document.querySelectorAll(
+        ".game-btns .manage-btns button"
+      );
+      inputs.forEach((input) => {
+        input.classList.add("disable");
+        input.disabled = true;
+      });
+      gameBtns.forEach((btn) => {
+        btn.disabled = true;
+      });
+      inputWord.classList.add("win");
+    } else {
+      success = false;
+      inputWord.classList.add("lose");
+    }
+  }
+  if (!success) {
+    if (currentTry <= countTries) {
+      currentTry++;
+    }
+    console.log(currentTry);
+    document.querySelector(`.div-inputs #try-${currentTry}-letter-1`)
+      ? document
+          .querySelector(`.div-inputs #try-${currentTry}-letter-1`)
+          .focus()
+      : null;
+    if (currentTry > countTries) {
+      const inputs = document.querySelectorAll(".div-inputs input");
+      const gameBtns = document.querySelectorAll(
+        ".game-btns .manage-btns button"
+      );
+      inputs.forEach((input) => {
+        input.classList.add("disable");
+        input.disabled = true;
+      });
+      gameBtns.forEach((btn) => {
+        btn.disabled = true;
+      });
+    }
+  }
+}
+
+function getHint() {
+  if (countHint > 0) {
+    countHint--;
+    document.querySelector(".hint span").innerHTML = `(${countHint})`;
+  }
+
+  if (countHint === 0) {
+    hintBtn.classList.add("disabled");
+    hintBtn.disabled = true;
+  }
+
+  const enabledInputs = document.querySelectorAll("input:not([disabled])");
+  const emptyInputs = Array.from(enabledInputs).filter(
+    (input) => input.value === ""
+  );
+
+  if (emptyInputs.length > 0) {
+    const randomIndex = Math.floor(Math.random() * emptyInputs.length);
+    const randomInput = emptyInputs[randomIndex];
+    const indexToFill = Array.from(enabledInputs).indexOf(randomInput);
+
+    if (indexToFill !== -1) {
+      randomInput.value = coutry[indexToFill];
+    }
+  }
+}
+
+// Handle Inputs
+function handleInputsFun(input, index) {
+  const nextLetter = inputs[index + 1];
+  nextLetter ? nextLetter.focus() : null;
+}
+
+// Handle Backspace Function
+function handleBackSpace(event) {
+  if (event.key === "Backspace") {
+    const inputs = document.querySelectorAll("input:not([disabled])");
+    const currentIndex = Array.from(inputs).indexOf(document.activeElement);
+    if (currentIndex > 0) {
+      const currentInput = inputs[currentIndex];
+      const prevInput = inputs[currentIndex - 1];
+      currentInput.value = "";
+      prevInput.value = "";
+      prevInput.focus();
+    }
+  }
 }

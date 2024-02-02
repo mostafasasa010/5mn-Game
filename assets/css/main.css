@@ -24,6 +24,8 @@
   --bold-weight: 700;
   /* Font Family */
   --main-family: "Cairo", sans-serif;
+  /* Z Index */
+  --z-fixed: 100;
 }
 @media screen and (min-width: 768px) {
   :root {
@@ -71,6 +73,10 @@ button,
 input {
   font-family: var(--main-family);
   border: none;
+}
+input {
+  background-color: var(--body-color);
+  color: var(--text-color);
 }
 img {
   max-width: 100%;
@@ -122,6 +128,7 @@ header.header {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    z-index: var(--z-fixed);
     i {
       color: var(--body-color);
       font-size: var(--biggest-size);
@@ -240,6 +247,11 @@ main.main {
           display: grid;
           grid-template-columns: var(--grid-input);
           gap: 0.25rem;
+          transition: 0.3s;
+          .disable {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
           input {
             width: var(--width-input);
             height: var(--width-input);
@@ -248,8 +260,17 @@ main.main {
             margin-bottom: 0.75rem;
             font-size: var(--font-input);
             border-bottom: 4px solid var(--main-color-alt);
+            background-color: var(--body-color-alt);
             &:focus {
               outline: none;
+            }
+            &.win {
+              background-color: #0079ff;
+              color: var(--text-color-alt);
+            }
+            &.lose {
+              background-color: #fe0000;
+              color: var(--text-color-alt);
             }
           }
         }
@@ -259,6 +280,10 @@ main.main {
       button {
         padding: 0.5rem 1.25rem;
         display: inline-block;
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
         &.hint {
           background-color: #0079ff;
           &:hover {
@@ -266,11 +291,18 @@ main.main {
           }
         }
       }
-      > button {
+      .btns-back > button {
         margin-top: 0.5rem;
         background-color: #fe0000;
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
         &:hover {
           background-color: #d30000;
+        }
+        &.back {
+          background-color: var(--text-color);
         }
       }
     }
