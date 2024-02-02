@@ -4,6 +4,7 @@ const againBtn = document.querySelector("button.again");
 const backBtn = document.querySelector("button.back");
 const checkBtn = document.querySelector("button.check-word");
 const hintBtn = document.querySelector("button.hint");
+let containerInputs = [];
 let inputs;
 let difficult;
 let coutry;
@@ -159,13 +160,15 @@ function generateInputsFun(tries) {
       );
       root.style.setProperty("--font-input", `${Dwidth * 0.7}px`);
     }
-    divInputs.className = "div-inputs";
+    divInputs.className = `div-inputs try-${i}`;
+    containerInputs.push(divInputs);
     div.appendChild(span);
     div.appendChild(divInputs);
     sectionInputs.appendChild(div);
     // Dynamic Style
     root.style.setProperty("--grid-input", `repeat(${coutry.length}, 1fr)`);
   }
+  handleDisableInputs();
   document.querySelector(`.div-inputs #try-${currentTry}-letter-1`).focus();
   inputs = document.querySelectorAll(".div-inputs input");
   inputs.forEach((input, index) => {
@@ -177,6 +180,7 @@ function generateInputsFun(tries) {
 
 // Play Again Function
 function againFun() {
+  currentTry = 1;
   let activeImage = document.querySelectorAll(".image .visiable");
   let inputs = document.querySelectorAll(".inputs > div");
   const gameBtns = document.querySelectorAll(".game-btns > div button");
@@ -201,24 +205,15 @@ function backBtnFun() {
 // Check Word Function
 function checkWord() {
   let success = true;
+  let inputsWords = [];
   for (let i = 0; i < coutry.length; i++) {
     let inputWord = document.getElementById(
       `try-${currentTry}-letter-${i + 1}`
     );
+    inputsWords.push(inputWord);
     let guessLetter = inputWord.value;
     let actualLetter = coutry[i];
     if (guessLetter === actualLetter) {
-      const inputs = document.querySelectorAll(".div-inputs input");
-      const gameBtns = document.querySelectorAll(
-        ".game-btns .manage-btns button"
-      );
-      inputs.forEach((input) => {
-        input.classList.add("disable");
-        input.disabled = true;
-      });
-      gameBtns.forEach((btn) => {
-        btn.disabled = true;
-      });
       inputWord.classList.add("win");
     } else {
       success = false;
@@ -229,7 +224,13 @@ function checkWord() {
     if (currentTry <= countTries) {
       currentTry++;
     }
-    console.log(currentTry);
+    containerInputs.forEach((div) => {
+      div.classList.remove("disable");
+    });
+    inputs.forEach((input) => {
+      input.disabled = false;
+    });
+    handleDisableInputs();
     document.querySelector(`.div-inputs #try-${currentTry}-letter-1`)
       ? document
           .querySelector(`.div-inputs #try-${currentTry}-letter-1`)
@@ -248,37 +249,48 @@ function checkWord() {
         btn.disabled = true;
       });
     }
+  } else {
+    const inputs = document.querySelectorAll(".div-inputs input");
+    const gameBtns = document.querySelectorAll(
+      ".game-btns .manage-btns button"
+    );
+    inputs.forEach((input) => {
+      input.classList.add("disable");
+      input.disabled = true;
+    });
+    gameBtns.forEach((btn) => {
+      btn.disabled = true;
+    });
   }
 }
 
+// Hint Function
 function getHint() {
   if (countHint > 0) {
     countHint--;
     document.querySelector(".hint span").innerHTML = `(${countHint})`;
   }
-
   if (countHint === 0) {
     hintBtn.classList.add("disabled");
     hintBtn.disabled = true;
   }
-
-  const enabledInputs = document.querySelectorAll("input:not([disabled])");
-  const emptyInputs = Array.from(enabledInputs).filter(
+  const emptyInputs = document.querySelectorAll(
+    ".div-inputs input:not(:disabled)"
+  );
+  const avilableInputs = Array.from(emptyInputs).filter(
     (input) => input.value === ""
   );
-
-  if (emptyInputs.length > 0) {
-    const randomIndex = Math.floor(Math.random() * emptyInputs.length);
-    const randomInput = emptyInputs[randomIndex];
-    const indexToFill = Array.from(enabledInputs).indexOf(randomInput);
-
+  if (avilableInputs.length > 0) {
+    const randomNum = Math.floor(Math.random() * avilableInputs.length);
+    const randomInput = avilableInputs[randomNum];
+    const indexToFill = Array.from(emptyInputs).indexOf(randomInput);
     if (indexToFill !== -1) {
       randomInput.value = coutry[indexToFill];
     }
   }
 }
 
-// Handle Inputs
+// Handle Inputs Function
 function handleInputsFun(input, index) {
   const nextLetter = inputs[index + 1];
   nextLetter ? nextLetter.focus() : null;
@@ -297,4 +309,18 @@ function handleBackSpace(event) {
       prevInput.focus();
     }
   }
+}
+
+// Handle Disable Inputs Function
+function handleDisableInputs() {
+  const disabledDivs = containerInputs.filter(
+    (div) => div.className !== `div-inputs try-${currentTry}`
+  );
+  disabledDivs.forEach((div) => {
+    div.classList.add("disable");
+  });
+  const disabledInputs = document.querySelectorAll(`.div-inputs.disable input`);
+  disabledInputs.forEach((input) => {
+    input.disabled = true;
+  });
 }

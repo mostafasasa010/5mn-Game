@@ -248,9 +248,11 @@ main.main {
           grid-template-columns: var(--grid-input);
           gap: 0.25rem;
           transition: 0.3s;
+          &.disable input,
           .disable {
             opacity: 0.5;
             cursor: not-allowed;
+            z-index: -1;
           }
           input {
             width: var(--width-input);
