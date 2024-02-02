@@ -4,6 +4,7 @@ const againBtn = document.querySelector("button.again");
 const backBtn = document.querySelector("button.back");
 const checkBtn = document.querySelector("button.check-word");
 const hintBtn = document.querySelector("button.hint");
+const msg = document.querySelector(".msg");
 let containerInputs = [];
 let inputs;
 let difficult;
@@ -175,12 +176,17 @@ function generateInputsFun(tries) {
     input.addEventListener("input", () => {
       handleInputsFun(input, index);
     });
+    // input.addEventListener("keydown", (e) => {
+    //   handleInputsFun(input, index, e);
+    // });
   });
 }
 
 // Play Again Function
 function againFun() {
   currentTry = 1;
+  msg.innerHTML = "";
+  msg.classList.remove("active");
   let activeImage = document.querySelectorAll(".image .visiable");
   let inputs = document.querySelectorAll(".inputs > div");
   const gameBtns = document.querySelectorAll(".game-btns > div button");
@@ -224,6 +230,10 @@ function checkWord() {
     if (currentTry <= countTries) {
       currentTry++;
     }
+    if (currentTry > countTries) {
+      msg.classList.add("active");
+      msg.innerHTML = `متزعلش يا صاحبي ممكن تكسب لما تلعب تاني`;
+    }
     containerInputs.forEach((div) => {
       div.classList.remove("disable");
     });
@@ -261,6 +271,13 @@ function checkWord() {
     gameBtns.forEach((btn) => {
       btn.disabled = true;
     });
+    if (currentTry === 1) {
+      msg.classList.add("active");
+      msg.innerHTML = `جامد ولله كسبت منغير ولا غلطه 🫡`;
+    } else {
+      msg.classList.add("active");
+      msg.innerHTML = `عاش يا صاحبي كسبت بعد ${currentTry} هبدة`;
+    }
   }
 }
 
@@ -291,9 +308,20 @@ function getHint() {
 }
 
 // Handle Inputs Function
-function handleInputsFun(input, index) {
+function handleInputsFun(input, index, e) {
+  // const currentIndex = Array.from(inputs).indexOf(input);
   const nextLetter = inputs[index + 1];
   nextLetter ? nextLetter.focus() : null;
+  // if (e.key === "ArrowRight") {
+  //   const nextLetter = currentIndex - 1;
+  //   nextLetter < inputs.length && nextLetter >= 0
+  //     ? inputs[nextLetter].focus()
+  //     : null;
+  // }
+  // if (e.key === "ArrowLeft") {
+  //   const nextLetter = currentIndex + 1;
+  //   nextLetter > 0 ? inputs[nextLetter].focus() : null;
+  // }
 }
 
 // Handle Backspace Function
