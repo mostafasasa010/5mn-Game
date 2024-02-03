@@ -107,11 +107,9 @@ function handleSubmitFun(e) {
 
 // Change Screen Function
 function changeScreenFun() {
-  const sectionStart = document.querySelector("section.start-section");
-  const sectionStartInfo = document.querySelector("section.start-section.info");
+  const sectionStart = document.querySelector("section.start");
   const sectionGame = document.querySelector("section.game-section");
   sectionStart.classList.add("hide");
-  sectionStartInfo.classList.add("hide");
   sectionGame.classList.add("active");
 }
 
@@ -154,6 +152,12 @@ function generateInputsFun(tries) {
       input.id = `try-${i}-letter-${j}`;
       divInputs.appendChild(input);
       // Dynamic Style
+      if (widthWindow >= 768 && widthWindow < 1024) {
+        widthWindow = 520;
+      }
+      if (widthWindow >= 1024) {
+        widthWindow = 920;
+      }
       let Dwidth = (widthWindow * 0.78125) / coutry.length;
       root.style.setProperty(
         "--width-input",

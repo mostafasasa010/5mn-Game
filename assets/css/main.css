@@ -31,7 +31,7 @@
   :root {
     --biggest-size: 2rem;
     --big-size: 1.5rem;
-    --normal-size: 1.125rem;
+    --normal-size: 1.25rem;
     --small-size: 0.875rem;
   }
 }
@@ -139,6 +139,7 @@ header.header > div i {
 
 /* --- Start Main --- */
 main.main {
+  max-width: 960px;
   margin-top: var(--header-height);
   margin-bottom: var(--footer-height);
   padding: 0.75rem 1.25rem;
@@ -222,8 +223,8 @@ section.start-section.info p i {
   margin-bottom: -3px;
   color: var(--main-color-alt);
 }
-section.hide {
-  display: none;
+section.start.hide {
+  display: none !important;
 }
 
 /* --- Section Game --- */
@@ -256,7 +257,6 @@ section.game-section > div span {
 section.game-section > div .div-inputs {
   display: grid;
   grid-template-columns: var(--grid-input);
-  gap: 0.25rem;
   transition: 0.3s;
 }
 section.game-section > div .div-inputs .disable,
@@ -271,6 +271,8 @@ section.game-section > div .div-inputs input {
   text-align: center;
   border: none;
   margin-bottom: 0.75rem;
+  margin-left: auto;
+  margin-right: auto;
   font-size: var(--font-input);
   border-bottom: 4px solid var(--main-color-alt);
   background-color: var(--body-color-alt);
@@ -296,7 +298,7 @@ section.game-section .msg.active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 section.game-section .game-btns {
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -366,3 +368,52 @@ footer p span {
   font-weight: var(--bold-weight);
 }
 /* --- End Footer --- */
+
+/* --- Media Queries --- */
+@media screen and (min-width: 768px) {
+  main.main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  section.start-section h3 {
+    font-size: var(--biggest-size);
+  }
+  section.game-section .image {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  section.game-section .inputs {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  section.game-section .game-btns {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main.main section.start {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  section.game-section {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 620px;
+  }
+  section.game-section .image {
+    max-width: 100%;
+  }
+  section.game-section .inputs {
+    max-width: 100%;
+  }
+  section.game-section .game-btns {
+    max-width: 100%;
+  }
+}
